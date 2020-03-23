@@ -1,26 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Flexbox from 'flexbox-react';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <div className="container">
+      <h2 className="header">TO-DO List</h2>
+      <form className="form">
+        <div className="form-div-p">
+          <p>
+            <input className="input" placeholder="add new task"></input>
+            <button className="button" type="submit">
+              add
+            </button>
+          </p>
+        </div>
+      </form>
+
+      <div className="list-div">
+        <p className="list-p">
+          water the plants
+          <button className="list-button" type="submit">
+            edit
+          </button>
+          <hr className="hr" />
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <p className="list-p">
+          water the plants
+          <button className="list-button" type="submit">
+            edit
+          </button>
+          <hr className="hr" />
+        </p>
+        <p className="list-p">
+          water the plants
+          <button className="list-button" type="submit">
+            edit
+          </button>
+          <hr className="hr" />
+        </p>
+        <p className="list-p">
+          water the plants
+          <button className="list-button" type="submit">
+            edit
+          </button>
+          <hr className="hr" />
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
