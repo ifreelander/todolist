@@ -3,6 +3,14 @@
   padding: 0px;
 }
 
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  background-color: #e8eaf1;
+}
+
 *,
 *:before,
 *:after {
@@ -18,67 +26,74 @@
 }
 
 /*Small devices (tablets, 375px and up) */
-@media only screen and (min-width: 375px) {
+.container {
+}
+
+.header {
+  padding: 25px;
+}
+.form {
+  margin-top: 20px;
+}
+.form-div-p {
+  margin: 10px;
+}
+
+.input {
+  margin: 5px;
+  padding: 5px;
+  height: 40px;
+  width: 250px;
+  border-radius: 0.3rem;
+}
+
+.button {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 0.3rem;
+}
+
+.list-button {
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 0.3rem;
+  margin-right: 0;
+}
+
+.list-div {
+  background-color: white;
+  border-radius: 0.3rem;
+  padding: 5px;
+  margin: 5px;
+  width: 300px;
+}
+.list-p {
+  margin-right: auto;
+  margin-top: 5px;
+}
+.hr {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.checkbox {
+  width: 28px;
+  height: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: background-color 0.2s ease-in-out;
+  border: 1px solid #fff;
+}
+
+/*Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
   .container {
-    background-color: #e8eaf1;
+    background-color: rgb(46, 78, 136);
   }
-
   .header {
-    padding: 25px;
-  }
-  .form {
-    margin-top: 20px;
-  }
-  .form-div-p {
-    margin: 10px;
-  }
-
-  .input {
-    margin: 5px;
-    padding: 5px;
-    height: 40px;
-    width: 250px;
-    border-radius: 0.3rem;
-  }
-
-  .button {
-    margin: 5px;
-    padding: 10px;
-    border-radius: 0.3rem;
-  }
-
-  .list-button {
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 0.3rem;
-    margin-right: 0;
-  }
-
-  .list-div {
-    background-color: white;
-    border-radius: 0.3rem;
-    padding: 5px;
-    margin: 5px;
-    width: 300px;
-  }
-  .list-p {
-    margin-right: auto;
-    margin-top: 5px;
-  }
-  .hr {
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  /*Large devices (desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .container {
-      background-color: rgb(46, 78, 136);
-    }
-    .header {
-      color: rgb(229, 255, 0);
-    }
+    color: rgb(229, 255, 0);
   }
 }
