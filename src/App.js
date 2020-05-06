@@ -2,8 +2,54 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Flexbox from 'flexbox-react';
 
+const addTodo = async (todo) => {
+  const postRequest = {
+    method: 'POST',
+    body: JSON.stringify(todo),
+    headers: { 'Content-Type': 'application/json' },
+  };
+
+  // return fetch('http://localhost:3000/todos/', postRequest)
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  try {
+    const response = await fetch('http://localhost:3000/todos', postRequest);
+    //console.log(response);
+    const addedTodo = await response.json();
+    // console.log('console.log(******---addedTodo.id----*****', addedTodo.id);
+    return addedTodo;
+  } catch (error) {
+    //console.log(error);
+  }
+};
+
+const updateTodo = async (todo) => {
+  // console.log('todo', todo);
+  const updateRequest = {
+    method: 'PUT',
+    body: JSON.stringify(todo),
+    headers: { 'Content-Type': 'application/json' },
+  };
+  try {
+    const response = await fetch(`http://localhost:3000/todos/${todo.id}`, updateRequest);
+    //console.log(response);
+    const updatedTodo = await response.json();
+    return updatedTodo;
+  } catch (error) {
+    //console.log(error);
+  }
+};
+
 const Header = () => {
-  return <h2 className="header">TO-DO List</h2>;
+  return (
+    <h2 data-testid="title" className="header">
+      TO-DO List
+    </h2>
+  );
 };
 
 const Input = ({ setList, list }) => {
@@ -22,11 +68,14 @@ const Input = ({ setList, list }) => {
           />
 
           <button
+            data-testid="add"
             className="button"
             type="submit"
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              setList([...list, { text, done: false }]);
+              const newTodo = { text, done: false };
+              const addedTodo = await addTodo(newTodo);
+              setList([...list, addedTodo]);
               setText('');
             }}
           >
@@ -39,7 +88,7 @@ const Input = ({ setList, list }) => {
 };
 
 const List = ({ list, setList }) => {
-  console.log('-----list', list);
+  //console.log('-----list', list);
 
   return (
     <div className="list-div">
@@ -48,22 +97,27 @@ const List = ({ list, setList }) => {
           <input
             className="checkbox"
             type="checkbox"
+            data-testid="checkbox"
             checked={listItem.done}
             onChange={(e) => {
               const oldList = list;
-              console.log('oldList', oldList);
+              //console.log('oldList', oldList);
               // const newList = [...oldList, { text: listItem.text, done: true }];
               const newList = [];
-              console.log("this item's index", listItemIndex);
+              //console.log("this item's index", listItemIndex);
               for (let loopIndex = 0; loopIndex < list.length; loopIndex++) {
-                console.log('loop index', loopIndex);
+                // console.log('loop index', loopIndex);
                 const item = list[loopIndex];
+                // console.log('listItem', listItem);
+                // console.log('Item', item);
                 if (loopIndex === listItemIndex) {
                   newList.push({ ...listItem, done: !listItem.done });
                 } else {
                   newList.push(item);
                 }
               }
+
+              updateTodo({ ...listItem, done: !listItem.done });
               setList(newList);
 
               // setList(list.map(item, loopIndex) => loopIndex === listItemIndex ? { ...item, done: true} : item);
@@ -102,16 +156,14 @@ const App = () => {
 
   useEffect(() => {
     const fetchToDoList = async () => {
-      const response = await fetch(`http://localhost:3000/todos/`);
-      console.log('response', response);
+      const response = await fetch(`http://localhost:3000/todos`);
+      //console.log(response);
       const todolist = await response.json();
-      console.log('todolist', todolist);
+      // console.log('todolist', todolist);
       setList(todolist);
     };
     fetchToDoList();
   }, []);
-
-  // TODO load existing todos from server (useEffect)
 
   // const listHasItems = list.length > 0;
 
