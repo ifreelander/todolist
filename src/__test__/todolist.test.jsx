@@ -7,12 +7,17 @@ import nock from 'nock';
 
 nock.disableNetConnect();
 
-nock('http://localhost:3000')
-  .get('/todos')
-  .reply(200, [{ id: 1, text: 'Coffee', done: false }]);
-
 beforeEach(() => {
   nock.cleanAll();
+
+  nock('http://localhost:3000')
+    .defaultReplyHeaders({ 'Access-Control-Allow-Origin': '*' })
+    .get('/todos')
+    .reply(200, [{ id: 1, text: 'Coffee', done: false }])
+    .post('/todos')
+    .reply(200, (body) => ({ ...body, id: Math.ceil(Math.random() * 999) }))
+    .put(`/todos/id`)
+    .reply(200);
 });
 
 test('App title should be always availabe to the user', async () => {
@@ -37,12 +42,7 @@ test('When user add an item to the list and clicks add, item should appears in t
   expect(listItem).toBeInTheDocument();
 });
 
-// test.only('When user select the checkbox next to each item, it should appears as line-through', async () => {
-//   const root = render(<App />);
-//   expect(userEvent.click(await screen.findAllByTestId('checkbox'))).toBeChecked();
-// });
-
-test.only('Clear button should remove all the items form the list', async () => {
+test('Clear button should remove all the items form the list', async () => {
   const root = render(<App />);
   const button = await root.findByText('Clear');
   userEvent.click(button);
