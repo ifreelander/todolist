@@ -10,6 +10,7 @@ const addTodo = async (todo) => {
   try {
     const response = await fetch('http://localhost:3000/todos', postRequest);
     const addedTodo = await response.json();
+    console.log('----res----', response.status);
     return addedTodo;
   } catch (error) {}
 };
